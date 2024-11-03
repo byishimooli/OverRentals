@@ -1,0 +1,104 @@
+{
+    "en": {
+      "navigation": {
+        "title": "BYISHIMO e-Real Estate",
+        "home": "Home",
+        "about": "About",
+        "services": "Services",
+        "gallery": "Gallery",
+        "contact": "Contact",
+        "logout": "Logout"
+      },
+      "hero": {
+        "welcome": "Welcome to BYISHIMO e-Real Estate",
+        "description": "BYISHIMO e-Real Estate is Rwanda's premier real estate website, showcasing diverse properties."
+      },
+      "properties": {
+        "available_properties": "Available Properties",
+        "search_placeholder": "Search properties...",
+        "search_button": "Search"
+      },
+      "filters": {
+        "sort_by": "Sort By",
+        "filter_by_type": "Filter By Type",
+        "price_low_to_high": "Price: Low to High",
+        "price_high_to_low": "Price: High to Low",
+        "property_types": {
+          "house": "House",
+          "apartment": "Apartment"
+        }
+      },
+      "property_card": {
+        "view_details": "View Details",
+        "price": "Price:"
+      }
+    },
+    "fr": {
+      "navigation": {
+        "title": "BYISHIMO e-Real Estate",
+        "home": "Accueil",
+        "about": "À propos",
+        "services": "Services",
+        "gallery": "Galerie",
+        "contact": "Contact",
+        "logout": "Déconnexion"
+      },
+      "hero": {
+        "welcome": "Bienvenue chez BYISHIMO e-Real Estate",
+        "description": "BYISHIMO e-Real Estate est le principal site immobilier du Rwanda, mettant en valeur des propriétés diverses."
+      },
+      "properties": {
+        "available_properties": "Propriétés disponibles",
+        "search_placeholder": "Rechercher des propriétés...",
+        "search_button": "Rechercher"
+      },
+      "filters": {
+        "sort_by": "Trier par",
+        "filter_by_type": "Filtrer par type",
+        "price_low_to_high": "Prix : croissant",
+        "price_high_to_low": "Prix : décroissant",
+        "property_types": {
+          "house": "Maison",
+          "apartment": "Appartement"
+        }
+      },
+      "property_card": {
+        "view_details": "Voir les détails",
+        "price": "Prix:"
+      }
+    },
+    "kiny": {
+      "navigation": {
+        "title": "BYISHIMO e-Real Estate",
+        "home": "Ahantu",
+        "about": "Ibyerekeye",
+        "services": "Serivisi",
+        "gallery": "Ibyo dusangiza",
+        "contact": "Twandikire",
+        "logout": "Gusohoka"
+      },
+      "hero": {
+        "welcome": "Murakaza neza kuri BYISHIMO e-Real Estate",
+        "description": "BYISHIMO e-Real Estate ni urubuga rw'ubukode mu Rwanda, rutanga umucyo ku mitungo itandukanye."
+      },
+      "properties": {
+        "available_properties": "Ibikoresho biboneka",
+        "search_placeholder": "Shakisha ibikoresho...",
+        "search_button": "Shakisha"
+      },
+      "filters": {
+        "sort_by": "Shyira mu byiciro",
+        "filter_by_type": "Saka mu bwoko",
+        "price_low_to_high": "Igiciro: Kuri make uhereye hejuru",
+        "price_high_to_low": "Igiciro: Hejuru uhereye hasi",
+        "property_types": {
+          "house": "Inzu",
+          "apartment": "Aparitement"
+        }
+      },
+      "property_card": {
+        "view_details": "Reba Birambuye",
+        "price": "Igiciro:"
+      }
+    }
+  }

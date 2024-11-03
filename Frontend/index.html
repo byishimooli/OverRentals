@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-Real Estate</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url("/images/web_sml-4ee24fa4ad9acc5ce8d5.jpg"); /* Add your background image */
+        background-size: cover;
+        background-repeat: no-repeat;
+        color: #fff;
+    }
+
+    .navbar {
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 15px;
+        display: flex;
+        justify-content: space-between; /* Space between title and links */
+        align-items: center;
+    }
+
+    .navbar h1 {
+        margin: 0;
+        font-size: 24px;
+        color: #fff; /* White text for the heading */
+    }
+
+    .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: inline-block; /* Aligns the list next to the heading */
+    }
+
+    .navbar ul li {
+        display: inline; /* Aligns links in a row */
+        margin-left: 20px;
+    }
+
+    .navbar ul li a {
+        color: #fff; /* White text for links */
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    .navbar ul li a:hover {
+        text-decoration: underline;
+        color: #007BFF; /* Change link color on hover */
+    }
+
+    /* Main Content Container */
+    .main-container {
+        max-width: 800px;
+        margin: 100px auto; /* Centering the content */
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black for blending */
+        border-radius: 10px;
+        text-align: center;
+        max-height: 800px;
+    }
+
+    h2 {
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+
+    .button-container {
+        margin-top: 20px;
+    }
+
+    .button {
+        display: inline-block;
+        margin: 10px;
+        padding: 15px 30px;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 18px;
+        transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+        background-color: #0056b3;
+    }
+</style>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <h1>e-Real Estate</h1>
+        <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./home.html"></a>About</a></li>
+            <li><a href="./staff.html"></a>Contact</a></li>
+            <li><a href="./login.html">Login</a></li>
+            <li><a href="./signin.html">Signup</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-container">
+        <h2>Welcome to e-Real Estate!</h2>
+        <p>Your one-stop solution for all real estate needs. Find, buy, or rent properties easily and efficiently.</p>
+        <div class="button-container">
+            <a th:href="@{./signUp}" class="button">Browse Properties</a>
+        </div>
+    </div>
+
+</body>
+</html>

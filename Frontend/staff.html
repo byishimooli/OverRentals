@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>/* General Body Styling */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        color: #333;
+    }
+    
+    /* Navbar Styling */
+    .navbar {
+        background-color: #333;
+        padding: 15px 0;
+        text-align: center;
+    }
+    
+    .navbar h1 {
+        color: #fff;
+        display: inline-block;
+        margin-right: 50px;
+        font-size: 28px;
+    }
+    
+    .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+    }
+    
+    .navbar ul li {
+        display: inline;
+        margin-left: 20px;
+    }
+    
+    .navbar ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 18px;
+    }
+    
+    .navbar ul li a:hover {
+        text-decoration: underline;
+        color: #007BFF;
+    }
+    
+    /* Staff Page Container */
+    .staff-container {
+        max-width: 1200px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    
+    /* Profile Card Styling */
+    .profile-card {
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 40px;
+    }
+    
+    /* Task Table */
+    .task-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .task-table th, .task-table td {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+    
+    .task-table th {
+        background-color: #007BFF;
+        color: white;
+    }
+    
+    .task-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    
+    /* Button Styling */
+    button.btn-edit, button.btn-delete {
+        padding: 10px 20px;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    button.btn-edit {
+        background-color: #28a745; /* Green for edit */
+    }
+    
+    button.btn-delete {
+        background-color: #dc3545; /* Red for delete */
+    }
+    
+    button.btn-edit:hover {
+        background-color: #218838;
+    }
+    
+    button.btn-delete:hover {
+        background-color: #c82333;
+    }
+    </style>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <h1>Staff Dashboard</h1>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Tasks</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Staff Content -->
+    <div class="staff-container">
+        <h2>Your Profile</h2>
+        <div class="profile-card">
+            <h3>John Doe</h3>
+            <p><strong>Email:</strong> john.doe@example.com</p>
+            <p><strong>Role:</strong> Staff</p>
+        </div>
+
+        <h2>Your Tasks</h2>
+        <table class="task-table">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Prepare monthly report</td>
+                    <td>2024-10-15</td>
+                    <td>In Progress</td>
+                    <td>
+                        <button class="btn-edit">Edit</button>
+                        <button class="btn-delete">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Attend team meeting</td>
+                    <td>2024-10-10</td>
+                    <td>Completed</td>
+                    <td>
+                        <button class="btn-edit">Edit</button>
+                        <button class="btn-delete">Delete</button>
+                    </td>
+                </tr>
+                <!-- Additional tasks will be listed here -->
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

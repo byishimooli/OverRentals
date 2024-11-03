@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Post Property</title>
+
+    <!-- CSRF Meta Tags -->
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <meta name="authToken" th:content="${authToken}" /> <!-- Assuming you have an authToken in meta -->
+
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            font-size: 28px;
+            color: #fff;
+            margin-right: 50px;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            display: flex;
+            margin: 0;
+        }
+
+        .navbar ul li {
+            margin-left: 20px;
+        }
+
+        .navbar ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .navbar ul li a:hover {
+            text-decoration: underline;
+            color: #007BFF;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"], input[type="number"], textarea, select {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .submit-button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+
+        .alert {
+            color: red;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <h1>Real Estate</h1>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/properties">Properties</a></li>
+            <li><a href="/post">Post Property</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <h2>Post New Property</h2>
+        
+        <div id="error-message" class="alert"></div> <!-- Error message display -->
+
+        <form id="propertyForm" enctype="multipart/form-data">
+            <div>
+                <label>Title:</label>
+                <input type="text" name="title" required />
+            </div>
+            <div>
+                <label>Address:</label>
+                <input type="text" name="address" required />
+            </div>
+            <div>
+                <label>Price:</label>
+                <input type="number" name="price" required />
+            </div>
+            <div>
+                <label>Bedrooms:</label>
+                <input type="number" name="bedrooms" required />
+            </div>
+            <div>
+                <label>Bathrooms:</label>
+                <input type="number" name="bathrooms" required />
+            </div>
+            <div>
+                <label>Property Type:</label>
+                <input type="text" name="propertyType" required />
+            </div>
+            <div>
+                <label>Description:</label>
+                <textarea name="description" required></textarea>
+            </div>
+            <div>
+                <label>Property Image:</label>
+                <input type="file" name="file" required />
+            </div>
+
+            <button type="submit" class="submit-button">Post Property</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('propertyForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+    
+            // Retrieve CSRF token, header, and auth token from meta tags
+            const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+            const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
+            const authToken = document.querySelector('meta[name="authToken"]').content;
+    
+            // Check if tokens and headers are valid
+            if (!csrfToken || !csrfHeader || !authToken) {
+                console.error("CSRF meta tags or Token are missing or invalid.");
+                return;
+            }
+    
+            // Set headers with CSRF and Authorization tokens
+            const headers = new Headers();
+            headers.append(csrfHeader, csrfToken);
+            headers.append("Authorization", `Bearer ${authToken}`);
+    
+            // Submit the property data
+            fetch('http://localhost:8090/api/properties/postWithFile', {
+                method: 'POST',
+                body: formData,
+                headers: headers
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to post property');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const propertyId = data.property_id;
+                // Redirect to home page with the new property ID as a URL parameter
+                window.location.href = `/home?newPropertyId=${propertyId}`;
+            })
+            .catch(error => {
+                const errorMessage = document.getElementById('error-message');
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = 'Error: ' + error.message;
+            });
+        });
+    </script>
+</body>
+</html>

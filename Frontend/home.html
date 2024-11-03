@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BYISHIMO e-Real Estate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/Style.css"> <!-- Ensure this file is served correctly -->
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-image: url("/images/103500764-GettyImages-147205632-2.jpg");
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            font-size: 28px;
+            color: #fff;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .navbar ul li {
+            margin-left: 20px;
+        }
+
+        .navbar ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .navbar ul li a:hover {
+            text-decoration: underline;
+            color: #007BFF;
+        }
+
+        /* Hero Section Styling */
+        .hero {
+            height: 70vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+        }
+
+        /* Property Listings Section */
+        .listing-preview {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .listing-preview h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        .listings {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .listing {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 30%;
+            margin: 15px 0;
+            padding: 15px;
+            text-align: left;
+            transition: transform 0.3s;
+        }
+
+        .listing:hover {
+            transform: translateY(-5px);
+        }
+
+        .listing img {
+            width: 100%;
+            border-radius: 5px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .listing h3 {
+            font-size: 22px;
+            margin: 10px 0;
+        }
+
+        .listing p {
+            color: #666;
+        }
+
+        .listing-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .listing-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Search Bar and Filters */
+        .search-bar {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .download-icon {
+            text-decoration: none;
+        }
+
+        .download-icon:hover .fas {
+            color: #0056b3;
+        }
+
+        .filter {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .filter select {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Pagination Styling */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .pagination a {
+            padding: 10px 15px;
+            margin: 0 5px;
+            border: 1px solid #007BFF;
+            color: #007BFF;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .pagination a.active {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        .language-select {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            font-size: 18px;
+            border: none;
+            border-radius: 4px;
+            padding: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <h1>e-Real Estate</h1>
+        <ul>
+            <li><a id="navHome" href="home.html">Home</a></li>
+            <li><a id="navPosting" href="./post.html">Posting</a></li>
+            <li><a id="navAgents" href="agents.html">Agents</a></li>
+            <li><a id="navAbout" href="about.html">About Us</a></li>
+            <li><a id="navContact" href="contact.html">Contact</a></li>
+            <li>
+                <select id="languageSelect" class="language-select" onchange="changeLanguage()">
+                    <option value="en">English</option>
+                    <option value="fr">Français</option>
+                    <option value="kiny">kinyarwanda</option>
+                </select>
+            </li>
+            <li>
+                <form action="./login.html" method="POST" style="display: inline;">
+                    <button type="submit" id="logoutText" style="background: none; border: none; color: #000000; cursor: pointer; font-size: 16px;">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <h2 id="descriptionText">Welcome to BYISHIMO e-Real Estate</h2>
+    </div>
+
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search properties...">
+        <button onclick="searchProperties()">Search</button>
+    </div>
+
+    <div class="filter">
+        <select id="sortSelect" onchange="sortProperties()">
+            <option value="">Sort By</option>
+            <option value="priceAsc">Price: Low to High</option>
+            <option value="priceDesc">Price: High to Low</option>
+        </select>
+        <select id="filterSelect" onchange="filterProperties()">
+            <option value="">Filter By Type</option>
+            <option value="house">House</option>
+            <option value="apartment">Apartment</option>
+        </select>
+    </div>
+
+    <div class="listing-preview">
+        <h2>Available Properties</h2>
+        <div class="listings" id="propertyList"></div>
+
+        <div class="pagination" id="pagination"></div>
+       
+    </div>
+
+    <script>
+        // Translation object to hold all text in different languages
+        const translations = {
+            en: {
+                navigation: {
+                    title: "e-Real Estate",
+                    home: "Home",
+                    posting: "Posting",
+                    agents: "Agents",
+                    about: "About Us",
+                    contact: "Contact",
+                    logout: "Logout"
+                },
+                hero: {
+                    description: "Welcome to BYISHIMO e-Real Estate"
+                },
+                search: {
+                    placeholder: "Search properties...",
+                    button: "Search"
+                },
+                filters: {
+                    sort: {
+                        default: "Sort By",
+                        lowToHigh: "Price: Low to High",
+                        highToLow: "Price: High to Low"
+                    },
+                    type: {
+                        default: "Filter By Type",
+                        house: "House",
+                        apartment: "Apartment"
+                    }
+                },
+                listings: {
+                    title: "Available Properties",
+                    price: "Price:",
+                    viewDetails: "View Details"
+                }
+            },
+            fr: {
+                navigation: {
+                    title: "e-Real Estate",
+                    home: "Accueil",
+                    posting: "Publication",
+                    agents: "Agents",
+                    about: "À Propos",
+                    contact: "Contact",
+                    logout: "Déconnexion"
+                },
+                hero: {
+                    description: "Bienvenue chez BYISHIMO e-Real Estate"
+                },
+                search: {
+                    placeholder: "Rechercher des propriétés...",
+                    button: "Rechercher"
+                },
+                filters: {
+                    sort: {
+                        default: "Trier par",
+                        lowToHigh: "Prix: Croissant",
+                        highToLow: "Prix: Décroissant"
+                    },
+                    type: {
+                        default: "Filtrer par type",
+                        house: "Maison",
+                        apartment: "Appartement"
+                    }
+                },
+                listings: {
+                    title: "Propriétés Disponibles",
+                    price: "Prix:",
+                    viewDetails: "Voir les détails"
+                }
+            },
+            kiny: {
+                navigation: {
+                    title: "e-Real Estate",
+                    home: "Urugo",
+                    posting: "Ibyangombwa",
+                    agents: "Abakozi",
+                    about: "Ibyerekeye",
+                    contact: "Twandikire",
+                    logout: "Sohoka"
+                },
+                hero: {
+                    description: "Ikaze kuri BYISHIMO e-Real Estate"
+                },
+                search: {
+                    placeholder: "Shakisha ibyiza...",
+                    button: "Shakisha"
+                },
+                filters: {
+                    sort: {
+                        default: "Tondeka",
+                        lowToHigh: "Igiciro: Gito Gikurikirana",
+                        highToLow: "Igiciro: Kinini Gikurikirana"
+                    },
+                    type: {
+                        default: "Tondeka hakurikijwe ubwoko",
+                        house: "Inzu",
+                        apartment: "Icyumba"
+                    }
+                },
+                listings: {
+                    title: "Ibyiza biriho",
+                    price: "Igiciro:",
+                    viewDetails: "Reba Ibisobanuro"
+                }
+            }
+        };
+    
+        // Language change function
+        function changeLanguage() {
+            const selectedLang = document.getElementById('languageSelect').value;
+            const t = translations[selectedLang];
+    
+            // Update navigation links
+            document.getElementById('navHome').textContent = t.navigation.home;
+            document.getElementById('navPosting').textContent = t.navigation.posting;
+            document.getElementById('navAgents').textContent = t.navigation.agents;
+            document.getElementById('navAbout').textContent = t.navigation.about;
+            document.getElementById('navContact').textContent = t.navigation.contact;
+            document.getElementById('logoutText').textContent = t.navigation.logout;
+    
+            // Update hero section
+            document.getElementById('descriptionText').textContent = t.hero.description;
+    
+            // Update search section
+            document.getElementById('searchInput').placeholder = t.search.placeholder;
+            document.querySelector('.search-bar button').textContent = t.search.button;
+    
+            // Update filter options
+            const sortSelect = document.getElementById('sortSelect');
+            sortSelect.options[0].text = t.filters.sort.default;
+            sortSelect.options[1].text = t.filters.sort.lowToHigh;
+            sortSelect.options[2].text = t.filters.sort.highToLow;
+    
+            const filterSelect = document.getElementById('filterSelect');
+            filterSelect.options[0].text = t.filters.type.default;
+            filterSelect.options[1].text = t.filters.type.house;
+            filterSelect.options[2].text = t.filters.type.apartment;
+    
+            // Update listings section
+            document.querySelector('.listing-preview h2').textContent = t.listings.title;
+        }
+    
+        let allProperties = []; // Store all properties for filtering and sorting
+        let filteredProperties = []; // Store filtered properties for pagination
+        const propertiesPerPage = 2; // Number of properties per page
+        let currentPage = 1; // Current page number
+    
+        // Fetch properties from backend
+        async function fetchProperties() {
+            try {
+                const response = await fetch('http://localhost:8090/api/properties');
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                allProperties = await response.json();
+                filteredProperties = [...allProperties]; // Start with all properties
+                displayPaginatedProperties(filteredProperties);
+            } catch (error) {
+                console.error('Error fetching properties:', error);
+                alert('Failed to fetch properties. Please try again later.');
+            }
+        }
+    
+        // Display properties on the current page
+        function displayPaginatedProperties(properties) {
+            const startIndex = (currentPage - 1) * propertiesPerPage;
+            const endIndex = startIndex + propertiesPerPage;
+            const paginatedProperties = properties.slice(startIndex, endIndex);
+    
+            const propertyList = document.getElementById('propertyList');
+            propertyList.innerHTML = ''; // Clear current properties
+    
+            paginatedProperties.forEach(property => {
+                const listingDiv = document.createElement('div');
+                listingDiv.className = 'listing';
+                listingDiv.innerHTML = `
+                    <img src="/home/${property.filePath}" alt="${property.title}" />
+                    <h3>${property.title}</h3>
+                    <p>${property.description}</p>
+                    <p>Price: <span>${property.price}</span></p>
+                    <a href="/home/${property.propertyId}" class="listing-button">View Details</a>
+                    <a href="/images/${property.propertyId}.pdf" download class="download-icon">
+                        <span class="fas fa-download" style="color: #007BFF; font-size: 24px;"></span>
+                    </a>
+                `;
+                propertyList.appendChild(listingDiv);
+            });
+    
+            renderPaginationControls(properties.length);
+        }
+    
+        // Render pagination controls
+        function renderPaginationControls(totalProperties) {
+            const totalPages = Math.ceil(totalProperties / propertiesPerPage);
+            const paginationDiv = document.getElementById('pagination');
+            paginationDiv.innerHTML = ''; // Clear existing controls
+    
+            for (let i = 1; i <= totalPages; i++) {
+                const pageLink = document.createElement('a');
+                pageLink.textContent = i;
+                pageLink.className = i === currentPage ? 'active' : '';
+                pageLink.href = '#';
+                pageLink.onclick = (e) => {
+                    e.preventDefault();
+                    currentPage = i;
+                    displayPaginatedProperties(filteredProperties);
+                };
+                paginationDiv.appendChild(pageLink);
+            }
+        }
+    
+        // Search properties based on title
+        function searchProperties() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            filteredProperties = allProperties.filter(property => 
+                property.title.toLowerCase().includes(query)
+            );
+            currentPage = 1; // Reset to first page
+            displayPaginatedProperties(filteredProperties);
+        }
+    
+        // Sort properties by price
+        function sortProperties() {
+            const sortValue = document.getElementById('sortSelect').value;
+            if (sortValue === 'lowToHigh') {
+                filteredProperties.sort((a, b) => a.price - b.price);
+            } else if (sortValue === 'highToLow') {
+                filteredProperties.sort((a, b) => b.price - a.price);
+            }
+            displayPaginatedProperties(filteredProperties); // Re-display after sorting
+        }
+    
+        // Filter properties by type
+        function filterProperties() {
+            const filterValue = document.getElementById('filterSelect').value;
+            filteredProperties = allProperties.filter(property => 
+                filterValue === '' || property.propertyType === filterValue
+            );
+            currentPage = 1; // Reset to first page
+            displayPaginatedProperties(filteredProperties); // Display filtered properties
+        }
+    
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            changeLanguage(); // Set default language
+            fetchProperties(); // Load properties
+        });
+    
+        // Attach events to elements
+        document.getElementById('languageSelect').addEventListener('change', changeLanguage);
+        document.getElementById('searchInput').addEventListener('input', searchProperties);
+        document.getElementById('sortSelect').addEventListener('change', sortProperties);
+        document.getElementById('filterSelect').addEventListener('change', filterProperties);
+    </script>
+    
+    
+        
+</body>
+</html>

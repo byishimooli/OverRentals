@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - BYISHIMO</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a4a4a;
+            --secondary-color: #6c757d;
+            --background-color: #f4f4f4;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar h1 {
+            color: var(--white);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar h1 i {
+            color: #fff;
+        }
+
+        .navbar ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .navbar ul li a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .navbar ul li a:hover {
+            color: #a0a0a0;
+        }
+
+        .signup-container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .signup-container h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--secondary-color);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .signup-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .signup-btn:hover {
+            background-color: #5a5a5a;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        #response-message {
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .error-message {
+            background-color: #ffdddd;
+            color: #ff0000;
+        }
+
+        .success-message {
+            background-color: #ddffdd;
+            color: #008000;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <h1><i class="fas fa-user-plus"></i> BYISHIMO</h1>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="signup-container">
+        <h2><i class="fas fa-user-circle"></i> Create Your Account</h2>
+        <form id="signup-form">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Create a strong password"
+                    minlength="8">
+            </div>
+            <button type="submit" class="signup-btn">Sign Up</button>
+            <div class="signup-link">
+                Already have an account? <a href="./login.html">Sign In</a>
+            </div>
+            <div id="response-message"></div>
+        </form>
+    </div>
+
+    <script>
+        // Improved fetch error handling for signup
+        document.getElementById("signup-form").addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const responseMessage = document.getElementById("response-message");
+
+            // Clear previous messages
+            responseMessage.innerHTML = "";
+            responseMessage.className = "";
+
+            // Basic client-side validation
+            if (password.length < 8) {
+                responseMessage.innerHTML = "Password must be at least 8 characters long";
+                responseMessage.className = "error-message";
+                return;
+            }
+
+            try {
+                const response = await fetch("http://localhost:8090/api/users/signup", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                // Get response text first
+                const responseText = await response.text();
+
+                if (response.ok) {
+                    try {
+                        // Try to parse as JSON
+                        const result = typeof responseText === 'string' ? JSON.parse(responseText) : responseText;
+                        const welcomeName = result.name || name;
+
+                        responseMessage.innerHTML = `Signup successful! Welcome, ${welcomeName}. Redirecting...`;
+                        responseMessage.className = "success-message";
+
+                        // Reset form
+                        document.getElementById("signup-form").reset();
+
+                        // Redirect after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = "/login.html";
+                        }, 2000);
+                    } catch (jsonError) {
+                        // If JSON parsing fails, display the raw response text
+                        responseMessage.innerHTML = responseText || "Signup successful, but received an unexpected response.";
+                        responseMessage.className = "success-message";
+
+                        // Optional: Still redirect after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = "/login.html";
+                        }, 2000);
+                    }
+                } else {
+                    // Handle error responses
+                    try {
+                        // Try to parse error as JSON
+                        const errorResult = JSON.parse(responseText);
+                        responseMessage.innerHTML = errorResult.message || "Signup failed. Please try again.";
+                    } catch (parseError) {
+                        // If JSON parsing fails, use the raw response text
+                        responseMessage.innerHTML = responseText || "Signup failed. Please try again.";
+                    }
+                    responseMessage.className = "error-message";
+                }
+            } catch (error) {
+                console.error("Signup error:", error);
+                responseMessage.innerHTML = "Network error. Please check your connection.";
+                responseMessage.className = "error-message";
+            }
+        });
+
+    </script>
+</body>
+
+</html>
